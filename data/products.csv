@@ -13,9 +13,9 @@ id,name,category,description,price,image,size
 12,Comoda dormitorio,Muebles,Comoda con 4 cajones en madera laqueada blanca; cuentan con 2 cajones mas chicos y 2 cajones largos,,,0.90 x 0.50
 13,Biblioteca /Rack TV,Muebles,Mueble compuesto x 2 columnas que pueden usarse juntas o x separado con 3 estantes cada una.,,,1.84 x 0.54 ancho x 0.37 profundidad c/u
 14,Silla escritorio,Muebles,Silla giratoria con ruedas plasticas con asiento cuerina a recambiar, altura regulable y respaldo tejido en tela y apoyabrazos,,,
-15,Velador,Luminaria,Velador laqueado blanco con 3 caireles y pantalla en color bordo ,,,
-16,Respaldo cama Queen,Muebles,Respaldo en madera laqueada blanca que puede ser apoyado o amurado a la pared,,,1.25 x 1.76 ancho
-17,Cama plaza y media,Muebles,Cama con carrito de plaza y media en madera maciza en laqueado blanco mate,,,1.95 x 0.95
+15,Velador,Luminaria,Velador laqueado blanco con 3 caireles y pantalla en color bordo ,100,,
+16,Respaldo cama Queen,Muebles,Respaldo en madera laqueada blanca que puede ser apoyado o amurado a la pared,80,,1.25 x 1.76 ancho
+17,Cama plaza y media,Muebles,Cama con carrito de plaza y media en madera maciza en laqueado blanco mate,50,,1.95 x 0.95
 18,Lampara juvenil techo,Luminaria,Lampara de techo con forma de pelota metalica en color celeste ,,si,
 19,Reposeras,Jardín ,2 reposeras plasticas blancas con 3 posiciones y cajon de guardado,,,1.87 x 0.76 x 0.47
 20,Perchero pared,Decoración,Perchero para colgar sobre pared en cuero marrón con 4 ganchos,,,0.53
