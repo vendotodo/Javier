@@ -1,236 +1,271 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Vendo Todo - Javi Belloni</title>
-    <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  </head>
-  <body>
-    <header class="header">
-      <div class="container">
-        <div class="brand">
-          <div class="logo">JB</div>
-          <div>
-            <div class="site-title">Vendo Todo</div>
-            <div style="color:var(--muted); font-size:13px">Si te interesa algo, me mandas mensaje</div>
-          </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vendo Todo - Javi Belloni</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="brand">
+        <div class="logo">JB</div>
+        <div>
+          <div class="site-title">Vendo Todo</div>
+          <div style="color:var(--muted); font-size:13px">Si te interesa algo, me mandas mensaje</div>
+				
         </div>
-      </div>
-    </header>
-  
-    <main class="container" style="padding-top:18px">
-      <div class="controls">
-        <input id="search" class="search" placeholder="Buscar..." style="flex:1" />
-        <select id="sort" class="select">
-          <option value="none">Ordenar</option>
-          <option value="price_asc">Precio ↑</option>
-          <option value="price_desc">Precio ↓</option>
-          <option value="name_asc">Nombre A→Z</option>
-        </select>
-      </div>
-  
-      <div id="catalog" class="grid"></div>
-    </main>
-  
-  <script>
-  function parseCSV(text){
-    const [headerLine, ...lines] = text.trim().split("\n")
-    const headers = headerLine.split(",")
-    return lines.map(l=>{
-      const cols = l.split(",")
-      let obj = {}
-      headers.forEach((h,i)=> obj[h.trim()] = cols[i]?.trim() )
-      obj.price = obj.price ? parseFloat(obj.price) : null;
-      return obj
-    })
-  }
-  
-  async function loadCatalog(){
-    const res = await fetch("data/products.csv")
-    const text = await res.text()
-    const products = parseCSV(text)
-  
-    const container = document.getElementById("catalog")
-    container.innerHTML = ""
-  
-    products.forEach(p=>{
-      const card = document.createElement("article")
-      card.className = "card"
-      card.dataset.name = p.name
-      card.dataset.price = p.price
-      const displayPrice = p.price !== null ? `$${p.price.toFixed(2)}` : "Consultar";
-
-      card.innerHTML = `
-        <img src="static/images/${p.id}.jpeg" alt="${p.name}">
-        <div class="meta">
-          <div class="title">${p.name}</div>
-          <div style="font-size:13px; color:var(--muted)">${p.category}</div>
-          <div style="font-size:13px; color:#444">${p.description}</div>
-          <div style="font-size:13px; color:#444">Dimenciones: ${p.size}</div>
-          <div class="price">Precio: ${displayPrice}</div>
-        </div>`
-      card.addEventListener("click", () => openOverlay(p));
-      container.appendChild(card)
-    })
-  }
-  
-  loadCatalog()
-  </script>
-  
-    <!-- Overlay de producto -->
-    <div id="productOverlay" class="overlay">
-      <div class="overlay-content">
-        <span class="close-btn" onclick="closeOverlay()">&times;</span>
-        
-        <!-- Carrusel -->
-        <div class="carousel">
-          <button class="prev-btn" onclick="changeSlide(-1)">&#10094;</button>
-          <div class="carousel-images" id="carouselImages"></div>
-          <button class="next-btn" onclick="changeSlide(1)">&#10095;</button>
-        </div>
-    
-        <h2 id="overlayName"></h2>
-        <p id="overlayDescription"></p>
-        <p id="overlaySize"></p>
-        <p id="overlayPrice"></p>
       </div>
     </div>
-    <a href="#" class="whatsapp-button" target="_blank">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-  </body>
-  <script>
+  </header>
+
+  <main class="container" style="padding-top:18px">
+    <!-- Nuevo bloque de filtros y ordenamiento -->
+    <div class="controls">
+      <input id="search" class="search" placeholder="Buscar..." style="flex:1" />
+      <select id="sort" class="select">
+        <option value="none">Ordenar</option>
+        <option value="price_asc">Precio ↑</option>
+        <option value="price_desc">Precio ↓</option>
+        <option value="name_asc">Nombre A→Z</option>
+      </select>
+    </div>
+
+    <div id="catalog" class="grid"></div>
+  </main>
+  
+		  
+						  
+														  
+										 
+						 
+							   
+				  
+															   
+														   
+				
+	  
+   
+  
+							   
+												
+								 
+								   
+  
+														
+							
+  
+						 
+													
+							 
+								
+								  
+																					 
+
+						
+															  
+						  
+											
+																			 
+																		
+																			  
+														  
+			   
+														   
+								 
+	  
+   
+  
+			   
+		   
+  
+  <!-- Overlay de producto -->
+  <div id="productOverlay" class="overlay">
+    <div class="overlay-content">
+      <span class="close-btn" onclick="closeOverlay()">&times;</span>
+		
+						 
+							  
+																			  
+																 
+																			 
+			  
+	
+      <h2 id="overlayName"></h2>
+      <p id="overlayDescription"></p>
+								
+      <p id="overlayPrice"></p>
+			
+    </div>
+  </div>
+
+  <a href="#" class="whatsapp-button" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+		
+  </a>
+
+<script>
 let overlayLoadToken = 0;
 let currentSlide = 0;
+let products = [];
 
-async function checkImageExists(url) {
-  try {
-    const res = await fetch(url, { method: 'HEAD' });
-    return res.ok;
-  } catch (e) {
-    return false;
-  }
-}
-
-function resolveImagePath(file) {
-  if (!file) return file;
-  if (file.startsWith('http') || file.startsWith('/') || file.includes('/')) return file;
-  return 'static/images/' + file;
-}
-
-async function loadProductImages(baseImage, token) {
-  const container = document.getElementById('carouselImages');
-  container.innerHTML = '<div class="loading">Cargando imágenes...</div>';
-  if (!baseImage) { container.innerHTML = '<div class="empty">Sin imagen</div>'; return; }
-
-  const m = baseImage.match(/^(.*?)(-\d+)?(\.[^.]+)$/);
-  if (!m) { container.innerHTML = '<div class="empty">Formato inválido</div>'; return; }
-  const baseName = m[1];
-  const ext = m[3];
-
-  const imagesFound = [];
-  const basePath = resolveImagePath(baseImage);
-  if (token !== overlayLoadToken) return;
-  if (await checkImageExists(basePath)) {
-    imagesFound.push(basePath);
-  } else {
-    const alt = resolveImagePath(baseName + '-1' + ext);
-    if (token !== overlayLoadToken) return;
-    if (await checkImageExists(alt)) imagesFound.push(alt);
-  }
-
-  const maxExtra = 15;
-  for (let i = 1; i <= maxExtra; i++) {
-    if (token !== overlayLoadToken) return;
-    const candidate = resolveImagePath(baseName + '-' + i + ext);
-    try {
-      const exists = await checkImageExists(candidate);
-      if (exists) {
-        if (!imagesFound.includes(candidate)) imagesFound.push(candidate);
-      } else {
-        break; // paramos en el primer no-encontrado
-      }
-    } catch (e) {
-      break;
-    }
-  }
-
-  container.innerHTML = '';
-  if (imagesFound.length === 0) {
-    container.innerHTML = '<div class="empty">No hay imágenes</div>';
-    return;
-  }
-
-  imagesFound.forEach((src, idx) => {
-    const img = document.createElement('img');
-    img.src = src;
-    if (idx === 0) img.classList.add('active');
-    container.appendChild(img);
+function parseCSV(text){
+  const [headerLine, ...lines] = text.trim().split("
+");
+  const headers = headerLine.split(",");
+  return lines.map(l => {
+    const cols = l.split(",");
+    let obj = {};
+    headers.forEach((h,i) => obj[h.trim()] = cols[i]?.trim());
+    obj.price = obj.price ? parseFloat(obj.price) : null;
+    return obj;
   });
-
-  currentSlide = 0;
-  document.getElementById('prevBtn').style.display = imagesFound.length > 1 ? 'block' : 'none';
-  document.getElementById('nextBtn').style.display = imagesFound.length > 1 ? 'block' : 'none';
 }
 
-async function openOverlay(product) {
+async function loadCatalog(){
+  const res = await fetch("data/products.csv");
+  const text = await res.text();
+  products = parseCSV(text);
+  renderCatalog(products);
+}
+
+function renderCatalog(list){
+  const container = document.getElementById("catalog");
+  container.innerHTML = "";
+  list.forEach(p => {
+    const displayPrice = p.price !== null ? `$${p.price.toFixed(2)}` : "Consultar";
+    const card = document.createElement("article");
+    card.className = "card";
+    card.dataset.name = p.name;
+    card.dataset.price = p.price;
+    card.dataset.description = p.description;
+    card.innerHTML = `
+      <img src="static/images/${p.id}.jpeg" alt="${p.name}">
+      <div class="meta">
+        <div class="title">${p.name}</div>
+        <div style="font-size:13px; color:var(--muted)">${p.category}</div>
+        <div style="font-size:13px; color:#444">${p.description}</div>
+        <div class="price">${displayPrice}</div>
+      </div>`;
+    card.addEventListener("click", () => openOverlay(p));
+    container.appendChild(card);
+  });
+}
+
+// Filtro por búsqueda
+const searchInput = document.getElementById("search");
+searchInput.addEventListener("input", () => {
+  const term = searchInput.value.toLowerCase();
+  const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+  renderCatalog(filtered);
+});
+
+// Ordenamiento
+const sortSelect = document.getElementById("sort");
+sortSelect.addEventListener("change", () => {
+  let sorted = [...products];
+  if(sortSelect.value === "price_asc") sorted.sort((a,b) => (a.price||0) - (b.price||0));
+  if(sortSelect.value === "price_desc") sorted.sort((a,b) => (b.price||0) - (a.price||0));
+  if(sortSelect.value === "name_asc") sorted.sort((a,b) => a.name.localeCompare(b.name));
+  renderCatalog(sorted);
+});
+   
+
+					  
+									   
+										   
+																 
+		 
+													   
+				   
+																		  
+			  
+													
+	   
+				 
+			
+	 
+   
+
+						   
+								 
+																	  
+		   
+   
+
+									 
+											  
+				  
+											   
+							   
+	 
+
+				   
+																							   
+																							   
+ 
+
+async function openOverlay(product){
   const token = ++overlayLoadToken;
   document.getElementById('overlayName').textContent = product.name || '';
   document.getElementById('overlayDescription').textContent = product.description || '';
-  document.getElementById('overlaySize').textContent = 'Dimenciones: ' + product.size || '';
+  document.getElementById('overlayPrice').textContent = (product.price && !isNaN(product.price)) ? `Precio: $${product.price}` : 'Consultar';
   
-  const overlayPrice = (product.price && !isNaN(product.price))
-    ? `$${product.price}`
-    : 'Consultar';
+															   
+						 
+				  
 
-  document.getElementById('overlayPrice').textContent = 'Precio: ' + overlayPrice;
+																				  
   document.getElementById('productOverlay').style.display = 'flex';
-  await loadProductImages(product.image, token);
+												
 }
 
-function closeOverlay() {
-  overlayLoadToken++; // invalida cargas pendientes
+function closeOverlay(){
+  overlayLoadToken++;
   document.getElementById('productOverlay').style.display = 'none';
-  document.getElementById('carouselImages').innerHTML = '';
+														   
 }
 
-function changeSlide(step) {
-  const imgs = document.querySelectorAll('#carouselImages img');
-  if (!imgs || imgs.length === 0) return;
-  imgs[currentSlide].classList.remove('active');
-  currentSlide = (currentSlide + step + imgs.length) % imgs.length;
-  imgs[currentSlide].classList.add('active');
-}
+							
+																
+										 
+												
+																   
+											 
+ 
 
-// Delegación: clic en la tarjeta abre el overlay
+// Delegación para clic en tarjeta
+// (manteniendo lógica original)
 document.addEventListener('click', function(ev) {
   const card = ev.target.closest && ev.target.closest('.card');
-  if (card && document.getElementById('catalog') && document.getElementById('catalog').contains(card)) {
+  if (card && document.getElementById('catalog').contains(card)) {
     const imgEl = card.querySelector('img');
     const imageSrc = imgEl ? imgEl.getAttribute('src') : (card.dataset.image || '');
     const name = card.dataset.name || (card.querySelector('.title') && card.querySelector('.title').textContent.trim()) || '';
     const descNode = card.querySelector('.meta > div:nth-child(3)');
     const description = descNode ? descNode.textContent.trim() : (card.dataset.description || '');
-    const descSize = card.querySelector('.meta > div:nth-child(4)');
-    const size = descSize ? descSize.textContent.trim() : (card.dataset.size || '');
+																	
+																					
     const price = card.dataset.price || (card.querySelector('.price') && card.querySelector('.price').textContent.replace('$','').trim()) || '';
-    openOverlay({ image: imageSrc, name: name, description: description, size: size, price: price });
+    openOverlay({ image: imageSrc, name: name, description: description, price: price });
     return;
   }
 
-  if (ev.target && ev.target.id === 'prevBtn') { ev.preventDefault(); changeSlide(-1); return; }
-  if (ev.target && ev.target.id === 'nextBtn') { ev.preventDefault(); changeSlide(1); return; }
-  if (ev.target && ev.target.id === 'overlayClose') { closeOverlay(); return; }
-  if (ev.target && ev.target.id === 'productOverlay') { closeOverlay(); return; }
+																								
+																							   
+																			   
+																				 
 });
 
-const phone = "5491165031891"; // Número de WhatsApp
+const phone = "5491165031891";
 const message = "Hola, quiero más información.";
 const link = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 document.querySelector(".whatsapp-button").setAttribute("href", link);
-    
+
+loadCatalog();
 </script>
 
+</body>
 </html>
