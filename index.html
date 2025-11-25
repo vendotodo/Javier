@@ -23,10 +23,15 @@
     <main class="container" style="padding-top:18px">
       <div class="controls">
         <input type="text" id="buscador" placeholder="Buscar por nombre...">
-        <select id="ordenarPor">
-          <option value="nombre">Ordenar por nombre</option>
-          <option value="precio">Ordenar por precio</option>
+        
+        <select id="sort" class="select">
+          <option value="none">Ordenar por</option>
+          <option value="price_asc">Precio ↑</option>
+          <option value="price_desc">Precio ↓</option>
+          <option value="name_asc">Nombre A→Z</option>
+          <option value="name_desc">Nombre Z→A</option>
         </select>
+
       </div>
   
       <div id="catalog" class="grid"></div>
@@ -282,6 +287,43 @@ function cargarCategorias() {
 
     renderCatalog(filtered);
   });
+  
+const sortSelect = document.getElementById("sort");
+
+sortSelect.addEventListener("change", () => {
+  let sorted = [...products];
+
+  switch (sortSelect.value) {
+    case "price_asc":
+      sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
+      break;
+    case "price_desc":
+      sorted.sort((a, b) => (b.price || 0) - (a.price || 0));
+      break;
+    case "name_asc":
+      sorted.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "name_desc":
+      sorted.sort((a, b) => b.name.localeCompare(a.name));
+      break;
+  }
+
+  // Aplicar filtro por categoría y búsqueda actual
+  const categorySelect = document.getElementById("filterCategory");
+  const selectedCategory = categorySelect ? categorySelect.value : "all";
+  if (selectedCategory !== "all") {
+    sorted = sorted.filter(p => p.category === selectedCategory);
+  }
+
+  const searchInput = document.getElementById("search");
+  const term = searchInput ? searchInput.value.toLowerCase() : "";
+  if (term) {
+    sorted = sorted.filter(p => p.name.toLowerCase().includes(term));
+  }
+
+  renderCatalog(sorted);
+});
+
 }
 
 
