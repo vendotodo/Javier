@@ -27,7 +27,7 @@
   
   <script>
   function parseCSV(text){
-    const [headerLine, ...lines] = text.trim().splia
+    const [headerLine, ...lines] = text.trim().split("\n")s
     const headers = headerLine.split(",")
     return lines.map(l=>{
       const cols = l.split(",")
