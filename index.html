@@ -22,8 +22,7 @@
   
     <main class="container" style="padding-top:18px">
       <div class="controls">
-        <input type="text" id="buscador" placeholder="Buscar por nombre...">
-        
+        <input id="search" class="search" placeholder="Buscar por nombre..." style="flex:1" />
         <select id="sort" class="select">
           <option value="none">Ordenar por</option>
           <option value="price_asc">Precio ↑</option>
@@ -322,6 +321,43 @@ sortSelect.addEventListener("change", () => {
   }
 
   renderCatalog(sorted);
+});
+
+const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("input", () => {
+  const term = searchInput.value.toLowerCase();
+
+  // Filtrar por nombre
+  let filtered = products.filter(p => p.name.toLowerCase().includes(term));
+
+  // Mantener filtro por categoría activo
+  const categorySelect = document.getElementById("filterCategory");
+  const selectedCategory = categorySelect ? categorySelect.value : "all";
+  if (selectedCategory !== "all") {
+    filtered = filtered.filter(p => p.category === selectedCategory);
+  }
+
+  // Mantener ordenamiento activo
+  const sortSelect = document.getElementById("sort");
+  if (sortSelect && sortSelect.value !== "none") {
+    switch (sortSelect.value) {
+      case "price_asc":
+        filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+        break;
+      case "price_desc":
+        filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+        break;
+      case "name_asc":
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "name_desc":
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+    }
+  }
+
+  renderCatalog(filtered);
 });
 
 }
