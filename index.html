@@ -223,7 +223,7 @@ async function openOverlay(product) {
   const overlayPrice = (product.price && !isNaN(product.price)) ? `$${formatter.format(product.price)}` : 'Consultar';
   document.getElementById('overlayPrice').textContent = 'Precio: ' + overlayPrice;
   document.getElementById('productOverlay').style.display = 'flex';
-  await loadProductImages(product.image || `${product.id}.jpeg`, token);
+  await loadProductImages(`${product.id}.jpeg`, token);
 }
 
 // Cierra overlay
