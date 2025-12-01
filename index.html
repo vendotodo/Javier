@@ -121,7 +121,7 @@ function renderCatalog(list) {
     card.className = "card";
     card.dataset.name = p.name;
     card.dataset.price = p.price;
-    const displayPrice = p.price !== null ? `$${formatter.format(p.price)}` : "Consultar";
+    const displayPrice = p.price !== null ? p.price !== -1 ? `$${formatter.format(p.price)}` : "Reservado" : "Consultar";
 
     // Construcción segura del contenido
     const img = document.createElement("img");
